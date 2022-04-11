@@ -22,6 +22,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/WORLD HAPPYNESS" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\DESMOND\Documents\GitHub\NovaIMS_DSBA2021_DataVisualization_Project\WORLD HAPPYNESS" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="WorldHappinessApp" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -62,6 +68,7 @@
       <updated>1649347849255</updated>
       <workItem from="1649347851116" duration="619000" />
       <workItem from="1649364583944" duration="68000" />
+      <workItem from="1649679179574" duration="640000" />
     </task>
     <servers />
   </component>
