@@ -15,4 +15,4 @@ xlrd >= 1.0.0
 openpyxl
 kaleido==0.1.0
 networkx==2.5
-statsmodels==0.11.1
+statsmodels
