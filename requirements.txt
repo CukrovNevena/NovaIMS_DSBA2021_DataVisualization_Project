@@ -1,11 +1,18 @@
 gunicorn
-plotly
 dash
-requests
-dash_renderer
-dash-html-components
 dash-core-components
-pandas
+dash-html-components
+dash_renderer
+dash-daq
+dash-bootstrap-components
 numpy
-dash_daq
-statsmodels
+pandas
+plotly
+requests
+matplotlib==3.3.4
+seaborn==0.11.1
+xlrd >= 1.0.0
+openpyxl
+kaleido==0.1.0
+networkx==2.5
+statsmodels==0.11.1
