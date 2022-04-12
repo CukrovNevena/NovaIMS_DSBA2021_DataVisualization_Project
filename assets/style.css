@@ -1,10 +1,15 @@
 body {
-    background-color:#DEEDCF
+    background-color:#ffffff
 ;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    color:#FFFFFF;
+    text-align: center;
+    font-size: xx-large;
+}
+
 .map_box {
-    background-color: #bfe1b0;
     margin: 0%;
     padding: 0%;
     vertical-align:middle;
@@ -28,31 +33,63 @@ body {
     margin: 20px;
     box-shadow: 2px 2px 2px lightgrey;
     vertical-align:middle;
-    position:relative
+    position:relative;
+    align-items: center;
+    justify-content: center;
 }
 .row1back {
-    background-color: #bfe1b0;
+    background-image: url('1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     vertical-align:middle;
     position:relative;
     padding: 2% 0
 }
+
+{    background: linear-gradient(-45deg, #ee7752, #e73c7e, #eda437, #fcff38);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .row2back {
-    background-color: #99d492;
+    background-image: url('1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     vertical-align:middle;
     position:relative;
-    padding: 5% 0
+    padding-top: 12.5%;
+    padding-bottom: 12.5%;
 }
 .row3back {
-    background-color: #74c67a;
+    background-image: url('1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     vertical-align:middle;
     position:relative;
-    padding: 5% 0
+    padding: 5% 0;
+    padding-top: 12.5%;
+    padding-bottom: 12.5%;
 }
 .row4back {
-    background-color: #56b870;
+    background-image: url('1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     vertical-align:middle;
     position:relative;
-    padding: 5% 0
+    padding: 5% 0;
+    padding-top: 12.5%;
+    padding-bottom: 12.5%;
 }
 
 .slider {
