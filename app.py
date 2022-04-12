@@ -74,7 +74,7 @@ slider_year = daq.Slider(
                [2015,2016,2017,2018,2019,2020,2021]},
         value=df['Year'].max(),
         color='#4B9072',
-        size=1400,
+        size=1200,
         step=1
     )
 
@@ -100,31 +100,29 @@ app.layout = html.Div([
 
     html.Div([
         html.Div([
-            html.Div([
-                dcc.Graph(id='choropleth'),
-            ]),
-        ], id='Map', className='pretty_box'),
-            html.Div([
-                html.Div([
-                    dropdown_scope,
-                ], id='Map_Scope', style={'width': '20%'}),
-                html.Div([
-                    slider_year,
-                ],style={'width': '80%'}, className='pretty_box'),
-            ],style={'display': 'flex'}),
-    ], id='1st row', style={'high':'100%','width': '100%'}, className='row1back'),
+        html.Div([
+            dropdown_scope,
+        ], id='Map_Scope', style={'width': '20%'}, className='pretty_box'),
+        html.Div([
+            slider_year,
+        ], style={'width': '80%'},className='pretty_box'),
+        ],style={'display': 'flex'}),
+        html.Div([
+            dcc.Graph(id='choropleth'),
+        ], id='Map', className='map_box'),
+    ], id='1st row', className='row1back'),
 
     html.Div([
         html.Div([
-            dcc.Graph(id='top10rank', className='box_emissions')
-        ], style={'width': '20%'}, className='pretty_box'),
+            dcc.Graph(id='top10rank')
+        ], style={'width': '20%'}),
         html.Div([
             dropdown_factors,
-            dcc.Graph(id='box_graph', className='box_emissions')
-        ], style={'width': '40%'}, className='pretty_box'),
+            dcc.Graph(id='box_graph')
+        ], style={'width': '40%'}),
         html.Div([
-            dcc.Graph(id='cor_graph', className='box_emissions')
-        ], style={'width': '40%'}, className='pretty_box')
+            dcc.Graph(id='cor_graph')
+        ], style={'width': '40%'})
     ], id='2nd row', style={'display': 'flex'}, className='row2back'),
 
     html.Div([
@@ -159,17 +157,17 @@ app.layout = html.Div([
                 html.Br(),
             ]),
             html.Div([
-                html.Label(id='Happiness_1', className='box_emissions'),
+                html.Label(id='Happiness_1'),
                 html.Br(),
             ], className='ranksbox'),
             html.Div([
-                html.Label(id='Happiness_2', className='box_emissions'),
+                html.Label(id='Happiness_2'),
                 html.Br(),
             ], className='ranksbox'),
-        ], id='c1', style={'width': '25%'},className='pretty_box'),
+        ], id='c1', style={'width': '25%'}),
         html.Div([
             dcc.Graph(id='polar-graph')
-        ], id='polar', style={'width': '50%'},className='pretty_box'),
+        ], id='polar', style={'width': '50%'}),
         html.Div([
             html.Div([
                 html.Label('Select the second country and compare the impact factors :'),
@@ -178,14 +176,14 @@ app.layout = html.Div([
                 html.Br(),
             ]),
             html.Div([
-                html.Label(id='Happiness_3', className='box_emissions'),
+                html.Label(id='Happiness_3'),
                 html.Br(),
             ], className='ranksbox'),
             html.Div([
-                html.Label(id='Happiness_4', className='box_emissions'),
+                html.Label(id='Happiness_4'),
                 html.Br(),
             ], className='ranksbox')
-        ], id='c2', style={'width': '25%'}, className='pretty_box')
+        ], id='c2', style={'width': '25%'})
     ], id='4th row', style={'display': 'flex'}, className='row4back')
 ])
 
@@ -249,7 +247,7 @@ def plots(year, countries, scale, continent):
                            z=df_happiness_0['Happiness Score'],
                            text=df_happiness_0['Country'],
                            colorscale='Viridis',
-                           colorbar=dict(title='Happiness Score Range'),
+                           colorbar=dict(title='Happiness Score Range',len=0.75),
 
                            hovertemplate='Country: %{text} <br>' + 'Happiness Score' + ': %{z}',
                            name=''
@@ -265,20 +263,21 @@ def plots(year, countries, scale, continent):
                                       oceancolor='azure',
                                       bgcolor='#f9f9f9',
                                       ),
-                             width=1800,
-                             height=1000,
+                             width=1500,
+                             height=1080,
                              dragmode=False,
                              margin=dict(l=0,
                                          r=0,
                                          b=0,
-                                         t=200,
+                                         t=0,
                                          pad=0),
 
                              title=dict(
                                  text=str(continent).capitalize()  + ' Happiness Score' + ' Choropleth Map on the year ' + str(
                                      year),
-                                 x=.5 , # Title relative position according to the xaxis, range (0,1)
-                                 font = dict(size=50)
+                                 x=.5,
+                                 y=0.9,# Title relative position according to the xaxis, range (0,1)
+                                 font = dict(size=25)
 
                              ),
                              paper_bgcolor='rgba(0,0,0,0)',
@@ -351,7 +350,7 @@ def polar_function(country1, country2):
                 ),
         width = 800,
         height = 500,
-        margin=dict(l=80, r=80, t=20, b=20),
+        margin=dict(l=0, r=0, t=20, b=20),
         showlegend=False,
         template="plotly_dark",
         plot_bgcolor = 'rgba(0, 0, 0, 0)',
