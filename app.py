@@ -198,7 +198,27 @@ app.layout = html.Div([
         html.Div([
             dcc.Graph(id='polar-graph')
         ], id='polar', style={'width': '50%','padding-right':'25%','padding-left':'30%',}),
-    ], id='4th row', className='row4back')
+    ], id='4th row', className='row4back'),
+    html.Div([
+        html.Div([
+            html.H5("Authors"),
+            dcc.Markdown("""\
+              Tongjiuzhou Liu (m20211012@novaims.unl.pt)  
+              Nina Urbancic (m20211314@novaims.unl.pt)  
+              Amelie Florentine Langenstein (m20210637@novaims.unl.pt)  
+              Laura Isabella Cuna (m20211312@novaims.unl.pt) 
+            """,style={"text-align": "center", "font-size": "15pt"}),
+        ]),
+        html.Div([
+            html.H6("Sources"),
+            dcc.Markdown("""\
+            - Dash Enterprise App Gallery: https://dash.gallery/Portal/
+            - The World Happiness Report: https://worldhappiness.report/
+            - World Happiness Report up to 2022: https://www.kaggle.com/datasets/mathurinache/world-happiness-report
+            """, style={"text-align": "center","font-size": "15pt"}),
+
+        ]),
+    ], className='lastrow')
 ])
 
 
@@ -528,7 +548,7 @@ def indicator2(country, year):
     return str(year) + ' ' + str(Happiness_Indicators[0]) + ' of ' + str(country) + ': ' + str(value_1), \
            str(year) + ' ' + str(Happiness_Indicators[1]) + ' of ' + str(country) + ': ' + str(value_2), \
            str(year) + ' Happiness Score and the related factors: Box plots with OLS, Top 10 ranking, Correlation Heatmap ',\
-           str(year) + ' Happiness Score and Rank Comparison for Multiple countries ', \
+           ' Happiness Score and Rank Comparison for Multiple countries ', \
            'Two countries All-round competition in year ' + str(year),
 
 

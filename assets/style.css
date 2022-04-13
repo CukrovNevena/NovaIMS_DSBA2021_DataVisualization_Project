@@ -46,22 +46,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 2% 0
 }
 
-{    background: linear-gradient(-45deg, #ee7752, #e73c7e, #eda437, #fcff38);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
 .row2back {
     background-image: url('1.jpg');
     background-repeat: no-repeat;
@@ -90,6 +74,20 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5% 0;
     padding-top: 12.5%;
     padding-bottom: 12.5%;
+}
+
+.lastrow {
+    background-image: url('1.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    vertical-align:middle;
+    position:relative;
+    align-items: center;
+    justify-content: center;
+    padding: 5% 0;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    color: #ffffff
 }
 
 .slider {
