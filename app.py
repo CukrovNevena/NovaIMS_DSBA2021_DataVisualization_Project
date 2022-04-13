@@ -73,7 +73,7 @@ slider_year = daq.Slider(
         marks={str(i): '{}'.format(str(i)) for i in
                [2015,2016,2017,2018,2019,2020,2021]},
         value=df['Year'].max(),
-        color='#9901fe',
+        color='#FBD35F',
         size=600,
         step=1
     )
@@ -94,11 +94,12 @@ server = app.server
 app.layout = html.Div([
 
     html.Div([
-        html.Img(src=app.get_asset_url('WHR_logo.png'),
+        html.Img(src=app.get_asset_url('whr.png'),
                  style={'width': '15%', 'position':'relative','margin': '3%'}),
     ], id='head'),
 
     html.Div([
+        html.H1(id='choropleth_title',style={'color':'#000000'}),
         html.Div([
             html.Div([
                 dropdown_scope,
@@ -140,13 +141,13 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 html.Div([
-                    html.Label('Country Choice',style={'color':'#ffffff'}),
+                    html.Label('Country Choice'),
                     dropdown_country,
                 ], id='Iteraction1', style={'width': '50%','padding-right':'25%','padding-left':'25%','padding-bottom':'2%'}),
                 html.Div([
                     html.Label('Linear Log'),
                     radio_lin_log,
-                ], id='Iteraction2', style={'color':'#ffffff','width': '50%','padding-right':'25%','padding-left':'25%'}),
+                ], id='Iteraction2', style={'width': '50%','padding-right':'25%','padding-left':'25%'}),
             ], id='Iteraction'),
         ]),
         html.Div([
@@ -201,7 +202,7 @@ app.layout = html.Div([
     ], id='4th row', className='row4back'),
     html.Div([
         html.Div([
-            html.H5("Authors"),
+            html.H5("Authors",style={'color':'#000000'}),
             dcc.Markdown("""\
               Tongjiuzhou Liu (m20211012@novaims.unl.pt)  
               Nina Urbancic (m20211314@novaims.unl.pt)  
@@ -210,7 +211,7 @@ app.layout = html.Div([
             """,style={"text-align": "center", "font-size": "15pt"}),
         ]),
         html.Div([
-            html.H6("Sources"),
+            html.H6("Sources",style={'color':'#000000'}),
             dcc.Markdown("""\
             - Dash Enterprise App Gallery: https://dash.gallery/Portal/
             - The World Happiness Report: https://worldhappiness.report/
@@ -231,6 +232,7 @@ app.layout = html.Div([
         Output("line_graph", "figure"),
         Output("bar_graph", "figure"),
         Output("choropleth", "figure"),
+        Output('choropleth_title',"children")
     ],
     [
         Input("year_slider", "value"),
@@ -259,17 +261,17 @@ def plots(year, countries, scale, continent):
         data_bar.append(dict(type='bar', x=x_bar, y=y_bar, name=country))
 
     layout_line= dict(title=dict(text='Happiness Rank from 2015 until 2021'),
-                      yaxis=dict(title='Indicators', type=['linear', 'log'][scale], autorange='reversed',color='white'),
+                      yaxis=dict(title='Indicators', type=['linear', 'log'][scale], autorange='reversed'),
                       paper_bgcolor='rgba(0,0,0,0)',
-                      plot_bgcolor='rgba(0,0,0,0)',titlefont = dict(color='white'),
-                      xaxis = dict(color='white'), legend=dict(font=dict(color='white',size=20))
+                      plot_bgcolor='rgba(0,0,0,0)',
+                      legend=dict(font=dict(color='black',size=20))
                       )
 
     layout_bar = dict(title=dict(text='Happiness Score from 2015 until 2021'),
-                      yaxis=dict(title='Indicators', type=['linear', 'log'][scale],color='white'),
+                      yaxis=dict(title='Indicators', type=['linear', 'log'][scale]),
                       paper_bgcolor='rgba(0,0,0,0)',
                       plot_bgcolor='rgba(0,0,0,0)', titlefont=dict(color='white'),
-                      xaxis=dict(color='white'),legend=dict(font=dict(color='white',size=20))
+                      legend=dict(font=dict(color='black',size=20))
                       )
 
     #############################################Second Choropleth######################################################
@@ -282,9 +284,9 @@ def plots(year, countries, scale, continent):
                            locationmode='country names',
                            z=df_happiness_0['Happiness Score'],
                            text=df_happiness_0['Country'],
-                           colorscale='Viridis',
+                           colorscale='pinkyl',
                            colorbar=dict(title='Happiness Score Range',len=0.75,orientation='h',\
-                                         y=-0.1,tickfont=dict(color='white'),titlefont=dict(size=20,color='white')),
+                                         y=-0.1,tickfont=dict(color='black'),titlefont=dict(size=20,color='black')),
                            hovertemplate='Country: %{text} <br>' + 'Happiness Score' + ': %{z}',
                            name=''
                            )
@@ -296,7 +298,7 @@ def plots(year, countries, scale, continent):
                                       landcolor='white',
                                       lakecolor='white',
                                       showocean=True,  # default = False
-                                      oceancolor='azure',
+                                      oceancolor='white',
                                       bgcolor='#f9f9f9',
                                       ),
                              width=1080,
@@ -305,17 +307,8 @@ def plots(year, countries, scale, continent):
                              margin=dict(l=0,
                                          r=0,
                                          b=100,
-                                         t=100,
+                                         t=0,
                                          pad=0),
-
-                             title=dict(
-                                 text=str(continent).capitalize()  + ' Happiness Score' + \
-                                      ' Choropleth Map on the year ' + str(year),
-                                 x=.5,
-                                 y=0.95,# Title relative position according to the xaxis, range (0,1)
-                                 font = dict(size=35,color='white')
-
-                             ),
                              paper_bgcolor='rgba(0,0,0,0)',
                              plot_bgcolor='rgba(0,0,0,0)'
                              )
@@ -324,6 +317,7 @@ def plots(year, countries, scale, continent):
     return go.Figure(data=data_line, layout=layout_line), \
            go.Figure(data=data_bar, layout=layout_bar), \
            go.Figure(data=data_choropleth, layout=layout_choropleth), \
+           str(continent).capitalize() + ' Happiness Score' + ' Choropleth Map on the year ' + str(year),
 
   #############################################polar plot############################################################
 @app.callback(
@@ -355,7 +349,7 @@ def polar_function(country1, country2):
         r=df1_for_plot['score'],
         theta=df1_for_plot.index,
         fill='toself',
-        marker_color = 'rgb(45,0,198)',
+        marker_color = '#ec647d',
         opacity =1,
         hoverinfo = "text" ,
         name = text_scores_1,
@@ -365,7 +359,7 @@ def polar_function(country1, country2):
         r=df2_for_plot['score'],
         theta=df2_for_plot.index,
         fill='toself',
-        marker_color = 'rgb(255,171,0)',
+        marker_color = '#fbd35f',
         hoverinfo = "text" ,
         name= text_scores_2,
         text  = [df2_for_plot.index[i] +' = ' + str(df2_for_plot['score'][i]) for i in range(len(df2_for_plot))]
@@ -373,8 +367,8 @@ def polar_function(country1, country2):
 
     fig.update_layout(
         polar=dict(
-            hole=0.1,
-            bgcolor='rgba(0, 0, 0, 0)',
+            hole=0.05,
+            bgcolor='#ffffff',
             radialaxis=dict(
                 visible=True,
                 type='linear',
@@ -414,7 +408,7 @@ def top10rankplot(year):
     fig_rank = go.Figure(
         data=[
             go.Bar(y=df_rank['Country'], x=df_rank['Happiness Score'], orientation='h', text=df_rank['Happiness Score'],
-                   textposition='auto',marker_color='lightsalmon')],
+                   textposition='auto',marker_color='lightcoral')],
         layout_title_text="TOP 10 Countries Happniess Rank"
     )
     fig_rank.update_layout(hovermode='closest',titlefont=dict(color='white'),
@@ -445,11 +439,11 @@ def box_graph_function(year,factor):
 
     fig_box = px.scatter(df_box, x=x_box, y=y_box,hover_name="Country",
                          log_x=False, marginal_x='box', marginal_y='box', template="simple_white",
-                         color_discrete_sequence=["#ffffff", "#9c179e"])
+                         color_discrete_sequence=["#ec647d", "#9c179e"])
     regline = sm.OLS(y_box, sm.add_constant(x_box)).fit().fittedvalues
     fig_box.add_traces(go.Scatter(x=x_box, y=regline,
                                   mode='lines',
-                                  marker_color='#fbfb3a',
+                                  marker_color='#ffffff',
                                   name='OLS Trendline')
                        )
     fig_box.update_layout(legend=dict(orientation="h", xanchor='center', x=0.5, yanchor='top', y=-0.2))
@@ -483,6 +477,7 @@ def cor_graph_function(year):
         showscale=True,
         hoverongaps=True,
         ygap=3,
+        colorscale='pinkyl'
     )
 
     fig_cor.update_layout(yaxis=dict(showgrid=False), xaxis=dict(showgrid=False),
@@ -549,7 +544,8 @@ def indicator2(country, year):
            str(year) + ' ' + str(Happiness_Indicators[1]) + ' of ' + str(country) + ': ' + str(value_2), \
            str(year) + ' Happiness Score and the related factors: Box plots with OLS, Top 10 ranking, Correlation Heatmap ',\
            ' Happiness Score and Rank Comparison for Multiple countries ', \
-           'Two countries All-round competition in year ' + str(year),
+           'Two countries All-round competition in year ' + str(year), \
+
 
 
 if __name__ == '__main__':

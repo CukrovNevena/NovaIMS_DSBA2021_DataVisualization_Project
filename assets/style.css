@@ -1,5 +1,5 @@
 body {
-    background-color:#ffffff
+    background-color:#FBD35F
 ;
 }
 
@@ -20,11 +20,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ranksbox {
-    box-shadow: 5px 10px 8px #888888;
-    text-align: center;
-    font-size: 30px;
-    font-weight: 600;
-    margin-bottom: 10%;
+    font-size: 25px;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px;
+    box-shadow: 2px 2px 2px lightgrey;
+    vertical-align:middle;
+    position:relative;
+    align-items: center;
+    justify-content: center;
 }
 
 .pretty_box {
@@ -37,49 +41,40 @@ h1, h2, h3, h4, h5, h6 {
     align-items: center;
     justify-content: center;
 }
+
 .row1back {
-    background-image: url('1.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-color:#ffffff;
     vertical-align:middle;
     position:relative;
     padding: 2% 0
 }
 
 .row2back {
-    background-image: url('1.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-color:#FBD35F;
     vertical-align:middle;
     position:relative;
-    padding-top: 12.5%;
-    padding-bottom: 12.5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 .row3back {
-    background-image: url('1.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-color:#ffffff;
     vertical-align:middle;
     position:relative;
     padding: 5% 0;
-    padding-top: 12.5%;
-    padding-bottom: 12.5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 .row4back {
-    background-image: url('1.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+
     vertical-align:middle;
     position:relative;
     padding: 5% 0;
-    padding-top: 12.5%;
-    padding-bottom: 12.5%;
+    padding-top: 5%;
+    padding-bottom: 5%;
 }
 
 .lastrow {
-    background-image: url('1.jpg');
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-color:#ffffff;
     vertical-align:middle;
     position:relative;
     align-items: center;
@@ -87,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
     padding: 5% 0;
     padding-top: 5%;
     padding-bottom: 5%;
-    color: #ffffff
+    color: #000000
 }
 
 .slider {
