@@ -65,16 +65,13 @@ dropdown_factors = dcc.Dropdown(
         value='Economy (GDP per Capita)'
     )
 
-slider_year = daq.Slider(
+slider_year = dcc.Slider(
         id='year_slider',
-        handleLabel={"showCurrentValue": True,"label": "Year"},
         min=df['Year'].min(),
         max=df['Year'].max(),
         marks={str(i): '{}'.format(str(i)) for i in
                [2015,2016,2017,2018,2019,2020,2021]},
-        value=df['Year'].max(),
-        color='#FBD35F',
-        size=600,
+        value=df['Year'].min(),
         step=1
     )
 
