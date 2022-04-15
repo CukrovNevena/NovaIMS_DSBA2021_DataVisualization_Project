@@ -134,7 +134,7 @@ app.layout = html.Div([
     ], id='2nd row',  className='row2back'),
 
     html.Div([
-        html.H3(id='Year_selected_2'),
+        html.H3(id='Year_selected_2',style={'color':'#000000'}),
         html.Div([
             html.Div([
                 html.Div([
