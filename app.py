@@ -12,7 +12,7 @@ import plotly.figure_factory as ff
 
 ######################################################Data##############################################################
 
-df = pd.read_csv('2015-2021.csv')
+df = pd.read_csv('2015-2022.csv')
 
 Happiness_Indicators = ['Happiness Rank','Happiness Score']
 
@@ -70,16 +70,11 @@ slider_year = dcc.Slider(
         min=df['Year'].min(),
         max=df['Year'].max(),
         marks={str(i): '{}'.format(str(i)) for i in
-               [2015,2016,2017,2018,2019,2020,2021]},
-        value=df['Year'].min(),
+               [2015,2016,2017,2018,2019,2020,2021,2022]},
+        value=df['Year'].max(),
         step=1
     )
 
-radio_lin_log = dcc.RadioItems(
-        id='lin_log',
-        options=[dict(label='Linear', value=0), dict(label='log', value=1)],
-        value=0
-    )
 
 
 ##################################################APP###################################################################
@@ -115,7 +110,7 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 html.Div([
-                    html.Label('Choose one factor to compare',style={'color':'#ffffff'}),
+                    html.Label('Choose one factor to compare',style={'color':'#000000'}),
                     dropdown_factors,
                 ],className='pretty_box'),
             ], style={'width': '25%','padding-right':'35.5%','padding-left':'35.5%','padding-bottom':'5%'}),
@@ -136,16 +131,10 @@ app.layout = html.Div([
     html.Div([
         html.H3(id='Year_selected_2',style={'color':'#000000'}),
         html.Div([
-            html.Div([
-                html.Div([
-                    html.Label('Country Choice'),
-                    dropdown_country,
-                ], id='Iteraction1', style={'width': '50%','padding-right':'25%','padding-left':'25%','padding-bottom':'2%'}),
-                html.Div([
-                    html.Label('Linear Log'),
-                    radio_lin_log,
-                ], id='Iteraction2', style={'width': '50%','padding-right':'25%','padding-left':'25%'}),
-            ], id='Iteraction'),
+           html.Div([
+                html.Label('Country Choice'),
+                dropdown_country,
+            ], id='Iteraction1', style={'width': '50%','padding-right':'25%','padding-left':'25%','padding-bottom':'2%'}),
         ]),
         html.Div([
             html.Div([
@@ -162,7 +151,7 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 html.Div([
-                    html.Label('Select the first country and compare the impact factors',style={'color': '#ffffff'}),
+                    html.Label('Select the first country',style={'color': '#000000'}),
                     html.Br(),
                     dropdown_country1,
                     html.Br(),
@@ -170,15 +159,15 @@ app.layout = html.Div([
                 html.Div([
                     html.Label(id='Happiness_1'),
                     html.Br(),
-                ], style={'color': '#ffffff'},className='ranksbox'),
+                ], style={'color': '#000000'},className='ranksbox'),
                 html.Div([
                     html.Label(id='Happiness_2'),
                     html.Br(),
-                ], style={'color': '#ffffff'},className='ranksbox'),
+                ], style={'color': '#000000'},className='ranksbox'),
             ], id='c1', style={'width': '25%','padding-right':'1%','padding-left':'25%'}),
             html.Div([
                 html.Div([
-                    html.Label('Select the second country and compare the impact factors',style={'color': '#ffffff'},),
+                    html.Label('Select the second country',style={'color': '#000000'},),
                     html.Br(),
                     dropdown_country2,
                     html.Br(),
@@ -186,25 +175,25 @@ app.layout = html.Div([
                 html.Div([
                     html.Label(id='Happiness_3'),
                     html.Br(),
-                ], style={'color': '#ffffff'},className='ranksbox'),
+                ], style={'color': '#000000'},className='ranksbox'),
                 html.Div([
                     html.Label(id='Happiness_4'),
                     html.Br(),
-                ],style={'color': '#ffffff'},className='ranksbox')
+                ],style={'color': '#000000'},className='ranksbox')
             ], id='c2', style={'width': '25%','padding-right':'25%','padding-left':'1%'}),
         ],style={'display': 'flex','padding-bottom':'5%'}),
         html.Div([
             dcc.Graph(id='polar-graph')
-        ], id='polar', style={'width': '50%','padding-right':'25%','padding-left':'30%',}),
+        ], id='polar', style={'width': '50%','padding-right':'25%','padding-left':'25%',}),
     ], id='4th row', className='row4back'),
     html.Div([
         html.Div([
             html.H5("Authors",style={'color':'#000000'}),
             dcc.Markdown("""\
+              Laura Isabella Cuna (m20211312@novaims.unl.pt)    
+              Amelie Florentine Langenstein (m20210637@novaims.unl.pt)  
               Tongjiuzhou Liu (m20211012@novaims.unl.pt)  
               Nina Urbancic (m20211314@novaims.unl.pt)  
-              Amelie Florentine Langenstein (m20210637@novaims.unl.pt)  
-              Laura Isabella Cuna (m20211312@novaims.unl.pt) 
             """,style={"text-align": "center", "font-size": "15pt"}),
         ]),
         html.Div([
@@ -234,11 +223,10 @@ app.layout = html.Div([
     [
         Input("year_slider", "value"),
         Input("country_drop", "value"),
-        Input("lin_log", "value"),
         Input('scopes_option', 'value')
     ]
 )
-def plots(year, countries, scale, continent):
+def plots(year, countries, continent):
     ############################################First Bar Plot##########################################################
     data_line = []
     data_bar = []
@@ -257,18 +245,16 @@ def plots(year, countries, scale, continent):
 
         data_bar.append(dict(type='bar', x=x_bar, y=y_bar, name=country))
 
-    layout_line= dict(title=dict(text='Happiness Rank from 2015 until 2021'),
-                      yaxis=dict(title='Indicators', type=['linear', 'log'][scale], autorange='reversed'),
+    layout_line= dict(title=dict(text='Happiness Rank from 2015 until 2022',font=dict(size=24)),
+                      yaxis=dict(title='Ranks', autorange='reversed'),
                       paper_bgcolor='rgba(0,0,0,0)',
                       plot_bgcolor='rgba(0,0,0,0)',
-                      legend=dict(font=dict(color='black',size=20))
                       )
 
-    layout_bar = dict(title=dict(text='Happiness Score from 2015 until 2021'),
-                      yaxis=dict(title='Indicators', type=['linear', 'log'][scale]),
+    layout_bar = dict(title=dict(text='Happiness Score from 2015 until 2022',font=dict(size=24)),
+                      yaxis=dict(title='Scores'),
                       paper_bgcolor='rgba(0,0,0,0)',
-                      plot_bgcolor='rgba(0,0,0,0)', titlefont=dict(color='white'),
-                      legend=dict(font=dict(color='black',size=20))
+                      plot_bgcolor='rgba(0,0,0,0)',
                       )
 
     #############################################Second Choropleth######################################################
@@ -314,7 +300,7 @@ def plots(year, countries, scale, continent):
     return go.Figure(data=data_line, layout=layout_line), \
            go.Figure(data=data_bar, layout=layout_bar), \
            go.Figure(data=data_choropleth, layout=layout_choropleth), \
-           str(continent).capitalize() + ' Happiness Score' + ' Choropleth Map on the year ' + str(year),
+           str(continent).capitalize() + ' Happiness Score ' + str(year),
 
   #############################################polar plot############################################################
 @app.callback(
@@ -375,7 +361,7 @@ def polar_function(country1, country2):
                 angle=90,
                 showline=False,
                 showticklabels=False, ticks='',
-                gridcolor='white'),
+                gridcolor='black'),
                 ),
         width = 800,
         height = 500,
@@ -384,7 +370,7 @@ def polar_function(country1, country2):
         template="plotly_dark",
         plot_bgcolor = 'rgba(0, 0, 0, 0)',
         paper_bgcolor = 'rgba(0, 0, 0, 0)',
-        font_color="white",
+        font_color="black",
         font_size= 15
     )
 
@@ -406,11 +392,11 @@ def top10rankplot(year):
         data=[
             go.Bar(y=df_rank['Country'], x=df_rank['Happiness Score'], orientation='h', text=df_rank['Happiness Score'],
                    textposition='auto',marker_color='lightcoral')],
-        layout_title_text="TOP 10 Countries Happniess Rank"
+        layout_title_text="The 10 Happiest Countries in the World"
     )
-    fig_rank.update_layout(hovermode='closest',titlefont=dict(color='white'),
-                           xaxis=dict(color='white'),
-                           yaxis=dict(color='white',autorange="reversed"),
+    fig_rank.update_layout(hovermode='closest',titlefont=dict(color='black'),
+                           xaxis=dict(color='black'),
+                           yaxis=dict(color='black',autorange="reversed"),
                           paper_bgcolor='rgba(0,0,0,0)',
                           plot_bgcolor='rgba(0,0,0,0)')
     return [fig_rank]
@@ -436,7 +422,7 @@ def box_graph_function(year,factor):
 
     fig_box = px.scatter(df_box, x=x_box, y=y_box,hover_name="Country",
                          log_x=False, marginal_x='box', marginal_y='box', template="simple_white",
-                         color_discrete_sequence=["#ec647d", "#9c179e"])
+                         color_discrete_sequence=["#ec647d", "#9c179e"],title='Relationship between Happiness Score and a chosen Factor')
     regline = sm.OLS(y_box, sm.add_constant(x_box)).fit().fittedvalues
     fig_box.add_traces(go.Scatter(x=x_box, y=regline,
                                   mode='lines',
@@ -445,9 +431,9 @@ def box_graph_function(year,factor):
                        )
     fig_box.update_layout(legend=dict(orientation="h", xanchor='center', x=0.5, yanchor='top', y=-0.2))
 
-    fig_box.update_layout(margin={'l': 40, 'b': 40, 't': 10, 'r': 0}, hovermode='closest',paper_bgcolor='rgba(0,0,0,0)',
-                          plot_bgcolor='rgba(0,0,0,0)',titlefont=dict(color='white'),
-                          xaxis=dict(color='white'),yaxis=dict(color='white'),)
+    fig_box.update_layout(margin={'l': 40, 'b': 40, 't': 30, 'r': 0}, hovermode='closest',paper_bgcolor='rgba(0,0,0,0)',
+                          plot_bgcolor='rgba(0,0,0,0)',titlefont=dict(color='black'),
+                          xaxis=dict(color='black'),yaxis=dict(color='black'),)
     return fig_box
 #####################################cor heatmap##############################################################
 @app.callback(
@@ -477,7 +463,7 @@ def cor_graph_function(year):
         colorscale='pinkyl'
     )
 
-    fig_cor.update_layout(yaxis=dict(showgrid=False), xaxis=dict(showgrid=False),
+    fig_cor.update_layout(yaxis=dict(showgrid=False,autorange='reversed'), xaxis=dict(showgrid=False),
 
                           legend=dict(
                               orientation="h",
@@ -487,10 +473,10 @@ def cor_graph_function(year):
                               x=1
                           ))
     fig_cor.update_layout(xaxis_tickangle=0)
-    fig_cor.update_layout(title_text="Correlation Heatmap between Happiness Score and factors",
+    fig_cor.update_layout(title_text="Correlation Heatmap of Happiness Score",
                           paper_bgcolor='rgba(0,0,0,0)',
-                          plot_bgcolor='rgba(0,0,0,0)', titlefont=dict(color='white'),
-                          xaxis=dict(color='white'),yaxis=dict(color='white'))
+                          plot_bgcolor='rgba(0,0,0,0)', titlefont=dict(color='black'),
+                          xaxis=dict(color='black'),yaxis=dict(color='black'))
 
     return fig_cor
 
@@ -539,9 +525,9 @@ def indicator2(country, year):
 
     return str(year) + ' ' + str(Happiness_Indicators[0]) + ' of ' + str(country) + ': ' + str(value_1), \
            str(year) + ' ' + str(Happiness_Indicators[1]) + ' of ' + str(country) + ': ' + str(value_2), \
-           str(year) + ' Happiness Score and the related factors: Box plots with OLS, Top 10 ranking, Correlation Heatmap ',\
+           str(year) + ' What influences the Happiness Score? ',\
            ' Happiness Score and Rank Comparison for Multiple countries ', \
-           'Two countries All-round competition in year ' + str(year), \
+           'Compare the Happiness of two Countries in ' + str(year), \
 
 
 
