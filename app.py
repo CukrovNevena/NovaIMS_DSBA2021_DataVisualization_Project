@@ -198,11 +198,8 @@ app.layout = html.Div([
         ]),
         html.Div([
             html.H6("Sources",style={'color':'#000000'}),
-            dcc.Markdown("""\
-            - Dash Enterprise App Gallery: https://dash.gallery/Portal/
-            - The World Happiness Report: https://worldhappiness.report/
-            - World Happiness Report up to 2022: https://www.kaggle.com/datasets/mathurinache/world-happiness-report
-            """, style={"text-align": "center","font-size": "15pt"}),
+            dcc.Markdown("""Dash Enterprise App Gallery: https://dash.gallery/Portal/ \n The World Happiness Report: https://worldhappiness.report/ \n World Happiness Report up to 2022: https://www.kaggle.com/datasets/mathurinache/world-happiness-report """,
+                         style={"text-align": "center","font-size": "15pt","white-space": "pre"}),
 
         ]),
     ], className='lastrow')
